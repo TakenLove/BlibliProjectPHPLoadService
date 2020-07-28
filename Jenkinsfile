@@ -20,7 +20,7 @@ pipeline {
    stage ('Deployment : Docker Compose And Load Balancer') {
      steps {
       sh '''
-       docker-compose -f ./docker-compose.yml up --scale web=2 --scale php=2 --no-recreate
+       docker-compose -f ./docker-compose.yml up -d --scale web=2 --scale php=2 --no-recreate
       '''
      }
    } 
