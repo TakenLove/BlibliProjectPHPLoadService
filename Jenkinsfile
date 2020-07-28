@@ -29,7 +29,7 @@ pipeline {
      steps {
        sh '''
         docker-compose -f ./docker-compose.yml ps
-        docker-compose container ls 
+        docker container ls 
        '''
      }
    }
