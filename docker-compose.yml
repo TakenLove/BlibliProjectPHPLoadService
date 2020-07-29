@@ -14,11 +14,22 @@ services:
       MYSQL_PASSWORD: teo12345
     ports:
       - 3306:3306
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 192.168.56.106:24224
+        tag: database-future
+      
 
   adminer:
     image: adminer
     ports:
       - 8080:8080
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 192.168.56.106:24224
+        tag: adminer
   
   php:
     image: blibliphp
@@ -31,6 +42,11 @@ services:
       - USERNAME=BlibliSQL
       - PASSWORD=teo12345
       - DBNAME=gd4_9523_c
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 192.168.56.106:24224
+        tag: php
 
   web:
     image: vultr-nginx
@@ -40,6 +56,11 @@ services:
       - php
     ports:
       - 80
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 192.168.56.106:24224
+        tag: nginx-web
 
   loadbalancer: 
     image: nginx:latest
@@ -47,6 +68,11 @@ services:
       - 80:80
     volumes:
     - './nginx/nginx.conf:/etc/nginx/nginx.conf' 
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: 192.168.56.106:24224
+        tag: nginx-loadbalancer
   
 volumes:
   phpsession:
